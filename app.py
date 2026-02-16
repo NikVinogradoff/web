@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -20,6 +20,11 @@ def promotion():
             "<p>Мы сделаем обитаемыми безжизненные пока планеты.</p>"
             "<p>И начнем с Марса!</p>"
             "<p>Присоединяйся!</p>")
+
+
+@app.route("/image_mars")
+def image_mars():
+    return render_template("image_mars.html")
 
 
 if __name__ == "__main__":
