@@ -32,5 +32,10 @@ def promotion_image():
     return render_template("promotion_image.html")
 
 
+@app.route("/choice/<planet_name>")
+def choice(planet_name):
+    return render_template("choice.html")
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)
