@@ -57,7 +57,7 @@ def choice(planet_name):
                    <div class="alert alert-success custom-alert" role="alert">
                        На ней много необходимых ресурсов;
                    </div>
-                   <div class="alert alert-light custom-alert" role="alert">
+                   <div class="alert alert-secondary custom-alert" role="alert">
                        На ней есть вода и атмосфера;
                    </div>
                    <div class="alert alert-warning custom-alert" role="alert">
@@ -68,6 +68,41 @@ def choice(planet_name):
                    </div>
                </body>
                </html>"""
+
+
+@app.route("/results/<nickname>/<int:level>/<float:rating>")
+def results(nickname, level, rating):
+    return f"""<!DOCTYPE html>
+                   <html lang="ru">
+                   <head>
+                       <meta charset="UTF-8">
+                       <meta name="viewport" content="width=device-width, initial-scale=1">
+                       <title>Варианты выбора</title>
+                       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+                             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+                       <style>
+                           .custom-alert {{
+                               font-weight: bold;
+                               font-size: 25px;
+                               padding-left: 0;
+                               padding-bottom: 0;
+                           }}
+                       </style>
+                   </head>
+                   <body>
+                       <h1>Результаты отбора</h1>
+                       <h3>Претендента на участие в миссии {nickname}:</h3>
+                       <div class="alert alert-success custom-alert" role="alert">
+                           Поздравляем! Ваш рейтинг после {level} этапа отбора
+                       </div>
+                       <div class="alert alert-light custom-alert" role="alert">
+                           составляет {rating}!
+                       </div>
+                       <div class="alert alert-warning custom-alert" role="alert">
+                           Желаем удачи!
+                       </div>
+                   </body>
+                   </html>"""
 
 
 if __name__ == "__main__":
