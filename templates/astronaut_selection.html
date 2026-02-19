@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Отбор астронавтов</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container mt-3" style="width: 40%;">
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3" style="width: 40%;">
         <div class="row">
             <div class="col">
                 <h1 class="text-center">Анкета претендента</h1>
@@ -23,16 +16,16 @@
             <div class="col">
                 <form>
                     <div class="mb-3">
-                        <label for="surname" class="form-label">Фамилия</label>
-                        <input type="text" class="form-control" id="surname">
+                        <label class="form-label" for="surname">Фамилия</label>
+                        <input class="form-control" id="surname" type="text">
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Имя</label>
-                        <input type="text" class="form-control" id="name">
+                        <label class="form-label" for="name">Имя</label>
+                        <input class="form-control" id="name" type="text">
                     </div>
                     <div class="mb-3">
-                        <label for="e-mail" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="e-mail">
+                        <label class="form-label" for="e-mail">E-mail</label>
+                        <input class="form-control" id="e-mail" type="email">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Образование</label>
@@ -47,34 +40,34 @@
                     <div class="mb-3">
                         <label class="form-label">Профессия</label>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="0" id="engineer">
-                            <label for="engineer" class="form-check-label">Инженер</label>
+                            <input class="form-check-input" id="engineer" type="checkbox" value="0">
+                            <label class="form-check-label" for="engineer">Инженер</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="0" id="cosmonaut">
-                            <label for="cosmonaut" class="form-check-label">Космонавт</label>
+                            <input class="form-check-input" id="cosmonaut" type="checkbox" value="0">
+                            <label class="form-check-label" for="cosmonaut">Космонавт</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="0" id="general">
-                            <label for="general" class="form-check-label">Генерал</label>
+                            <input class="form-check-input" id="general" type="checkbox" value="0">
+                            <label class="form-check-label" for="general">Генерал</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="0" id="human">
-                            <label for="human" class="form-check-label">Человек</label>
+                            <input class="form-check-input" id="human" type="checkbox" value="0">
+                            <label class="form-check-label" for="human">Человек</label>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Пол</label>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="gender" id="male">
+                            <input class="form-check-input" id="male" name="gender" type="radio">
                             <label class="form-check-label" for="male">Мужской</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="gender" id="female">
+                            <input class="form-check-input" id="female" name="gender" type="radio">
                             <label class="form-check-label" for="female">Женский</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="gender" id="parket">
+                            <input class="form-check-input" id="parket" name="gender" type="radio">
                             <label class="form-check-label" for="parket">Паркет</label>
                         </div>
                     </div>
@@ -84,19 +77,15 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="0" id="ready">
-                            <label for="ready" class="form-check-label">Готовы ли остаться на Марсе?</label>
+                            <input class="form-check-input" id="ready" type="checkbox" value="0">
+                            <label class="form-check-label" for="ready">Готовы ли остаться на Марсе?</label>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success">Отправить</button>
+                        <button class="btn btn-success" type="submit">Отправить</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

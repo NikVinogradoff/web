@@ -5,12 +5,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-    return "Миссия Колонизация Марса"
+    return render_template("base.html", title="Заготовка")
 
 
 @app.route("/index")
 def index():
-    return "И на Марсе будут яблони цвести!"
+    return render_template("base.html", title="Заготовка")
 
 
 @app.route("/promotion")
@@ -107,7 +107,7 @@ def results(nickname, level, rating):
 
 @app.route("/astronaut_selection")
 def astronaut_selection():
-    return render_template("astronaut_selection.html")
+    return render_template("astronaut_selection.html", title="Отбор астронавтов")
 
 
 if __name__ == "__main__":
