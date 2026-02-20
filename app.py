@@ -129,5 +129,13 @@ def load_photo():
                                title="Отбор астронавтов", f="static/images/robot.jpg")
 
 
+@app.route("/carousel")
+def carousel():
+    return render_template("carousel.html",
+                           img1="static/images/marsohod.jpg",
+                           img2="static/images/mars_chocolate.jpg",
+                           img3="static/images/mars_home.jpg")
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)
