@@ -114,18 +114,13 @@ def astronaut_selection():
 def load_photo():
     if request.method == 'GET':
         return render_template("load_photo.html",
-                               title="Отбор астронавтов", f="static/images/robot.jpg")
+                               title="Отбор астронавтов", f="static/images/user.jpg")
     elif request.method == 'POST':
         f = request.files['file']
-        if f.filename == '':
-            return render_template("load_photo.html",
-                                   title="Отбор астронавтов", f="static/images/robot.jpg")
-        elif f:
-            f.save(f"static/images/{f.filename}")
-            return render_template("load_photo.html",
-                                   title="Отбор астронавтов", f=f"static/images/{f.filename}")
+        if f and f.filename != '':
+            f.save(f"static/images/user.jpg")
         return render_template("load_photo.html",
-                               title="Отбор астронавтов", f="static/images/robot.jpg")
+                               title="Отбор астронавтов", f="static/images/user.jpg")
 
 
 @app.route("/carousel")
