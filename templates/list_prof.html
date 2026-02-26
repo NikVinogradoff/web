@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3" style="width: 60%;">
+    <div class="row">
+        <div class="col">
+            <h2>Список профессий</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if sp == "ol" %}
+            <ol>
+                {% for prof in profs %}
+                <li>{{ prof }}</li>
+                {% endfor %}
+            </ol>
+            {% elif sp == "ul" %}
+            <ul>
+                {% for prof in profs %}
+                <li>{{ prof }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            {% for prof in profs %}
+            <p>{{ prof }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
