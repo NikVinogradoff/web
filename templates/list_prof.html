@@ -4,7 +4,13 @@
 <div class="container mt-3" style="width: 60%;">
     <div class="row">
         <div class="col">
+            {% if sp == "ol" or sp == "ul" %}
             <h2>Список профессий</h2>
+            {% else %}
+            <div class="alert alert-danger text-center" role="alert">
+                <strong>Error</strong>
+            </div>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -22,9 +28,7 @@
                 {% endfor %}
             </ul>
             {% else %}
-            {% for prof in profs %}
-            <p>{{ prof }}</p>
-            {% endfor %}
+            <p class="text-center">Требуется обращение по адресу "/ul" или "/ol"</p>
             {% endif %}
         </div>
     </div>
