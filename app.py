@@ -178,5 +178,10 @@ def distribution():
     return render_template("distribution.html", members=members)
 
 
+@app.route("/table/<sex>/<int:age>")
+def table(sex, age):
+    return render_template("table.html", sex=sex, age=age)
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)
