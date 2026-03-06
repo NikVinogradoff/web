@@ -3,6 +3,10 @@ from werkzeug.utils import redirect
 
 from forms.login_form import LoginForm
 
+from os import listdir
+
+from random import randint
+
 app = Flask(__name__)
 
 
@@ -181,6 +185,23 @@ def distribution():
 @app.route("/table/<sex>/<int:age>")
 def table(sex, age):
     return render_template("table.html", sex=sex, age=age)
+
+
+@app.route("/gallery", methods=['POST', 'GET'])
+def gallery():
+    if request.method == "GET":
+        return render_template("gallery.html",
+                               files=[f'images/gallery/{filename}' for filename in listdir('static/images/gallery')])
+    elif request.method == "POST":
+        f = request.files['file']
+        if f and f.filename != '':
+            while True:
+                filename = f"photo{randint(1, 1000000000)}.jpg"
+                if filename not in listdir('static/images/gallery'):
+                    f.save(f"static/images/gallery/{filename}")
+                    break
+        return render_template("gallery.html",
+                               files=[f'images/gallery/{filename}' for filename in listdir('static/images/gallery')])
 
 
 if __name__ == "__main__":
