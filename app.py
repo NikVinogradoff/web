@@ -3,6 +3,8 @@ from werkzeug.utils import redirect
 
 from forms.login_form import LoginForm
 
+from data import db_session
+
 from os import listdir
 
 from random import randint
@@ -205,4 +207,5 @@ def gallery():
 
 
 if __name__ == "__main__":
+    db_session.global_init("db/mars_explorer.db")
     app.run("127.0.0.1", 8080)
