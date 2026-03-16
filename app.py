@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import redirect
 
+from data.db_session import create_session
+from data.jobs import Jobs
+from data.user import User
 from forms.login_form import LoginForm
 
 from data import db_session
@@ -16,13 +19,14 @@ app.config["SECRET_KEY"] = "password123"
 
 
 @app.route("/")
-def main():
-    return render_template("base.html", title="Заготовка")
-
-
 @app.route("/index")
-def index():
-    return render_template("base.html", title="Заготовка")
+def main():
+    session = create_session()
+    result = session.query(Jobs, User).join(
+        User,
+        Jobs.team_leader == User.id
+    ).all()
+    return render_template("index.html", title="Главная", result=result)
 
 
 @app.route("/promotion")
