@@ -5,7 +5,7 @@ from data.db_session import create_session
 from data.jobs import Jobs
 from data.user import User
 from forms.login_form import LoginForm
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required, logout_user
 
 from data import db_session
 
@@ -189,14 +189,20 @@ def login():
     if login_form.validate_on_submit():
         session = db_session.create_session()
         user = session.query(User).filter(
-            User.email == login_form.email,
-            User.hashed_password == login_form.password.data
+            User.email == login_form.email
         ).first()
-        if user:
+        if user and user.check_password(login_form.password.data):
             login_user(user, login_form.remember_me)
             return redirect("/")
         return render_template("login.html", form=login_form, message="Пользователь не существует")
     return render_template("login.html", form=login_form)
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 @app.route("/distribution")
