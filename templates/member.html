@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="width: 60%;">
+    <h1 class="text-center">{{ name }} {{ surname  }}</h1>
+    <div class="row">
+        <div class="col text-center">
+            <img src="{{ photo }}"
+                 alt="{{ photo }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            {{ professions }}
+        </div>
+    </div>
+</div>
+{% endblock %}

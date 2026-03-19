@@ -1,0 +1,50 @@
+{
+  "Ridley Scott": {
+    "name": "Ridley",
+    "surname": "Scott",
+    "photo": "static/images/members/scott.jpg",
+    "professions": [
+      "captain", "sherif", "trainer"
+    ]
+  },
+  "Andy Wir": {
+    "name": "Andy",
+    "surname": "Wir",
+    "photo": "static/images/members/wir.jpg",
+    "professions": [
+      "engineer", "physicist"
+    ]
+  },
+  "Mark Wotny": {
+    "name": "Mark",
+    "surname": "Wotny",
+    "photo": "static/images/members/wotny.jpg",
+    "professions": [
+      "astronomyc", "astrologic", "photographer"
+    ]
+  },
+  "Venkata Kapure": {
+    "name": "Venkata",
+    "surname": "Kapure",
+    "photo": "static/images/members/kapure.jpg",
+    "professions": [
+      "shef"
+    ]
+  },
+  "Teddy Sanders": {
+    "name": "Teddy",
+    "surname": "Sanders",
+    "photo": "static/images/members/sanders.jpg",
+    "professions": [
+      "doctor", "botanic"
+    ]
+  },
+  "Shon Bin": {
+    "name": "Shon",
+    "surname": "Bin",
+    "photo": "static/images/members/bin.jpg",
+    "professions": [
+      "positive guy"
+    ]
+  }
+}

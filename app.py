@@ -11,7 +11,9 @@ from data import db_session
 
 from os import listdir
 
-from random import randint
+from random import randint, choice
+
+import json
 
 app = Flask(__name__)
 
@@ -231,6 +233,17 @@ def gallery():
                     break
         return render_template("gallery.html",
                                files=[f'images/gallery/{filename}' for filename in listdir('static/images/gallery')])
+
+
+@app.route("/member")
+def member():
+    with open(f"templates/members.json", 'r') as f: # если бы в json-е были бы строки на русском, как в примере,
+        # то при считывании файла python бы почему-то перевёл русский на марсианский ('Р\xa0РёРґР»Рё РЎРєРѕС‚С‚' и т.п.)
+        file = json.load(f)
+        print(file)
+        marser = file[choice(file.keys())]
+    return render_template("member.html", name=marser["name"], surname=marser["surname"],
+                           photo=marser["photo"], professions=', '.join(sorted(marser["professions"])))
 
 
 if __name__ == "__main__":
