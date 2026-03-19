@@ -5,6 +5,7 @@ from data.db_session import create_session
 from data.jobs import Jobs
 from data.user import User
 from forms.login_form import LoginForm
+from flask_login import LoginManager, login_user
 
 from data import db_session
 
@@ -16,6 +17,14 @@ app = Flask(__name__)
 
 
 app.config["SECRET_KEY"] = "password123"
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def user_loader(user_id):
+    session = db_session.create_session()
+    return session.get(User, user_id)
 
 
 @app.route("/")
@@ -178,7 +187,15 @@ def auto_answer():
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        return redirect("/")
+        session = db_session.create_session()
+        user = session.query(User).filter(
+            User.email == login_form.email,
+            User.hashed_password == login_form.password.data
+        ).first()
+        if user:
+            login_user(user, login_form.remember_me)
+            return redirect("/")
+        return render_template("login.html", form=login_form, message="Пользователь не существует")
     return render_template("login.html", form=login_form)
 
 
