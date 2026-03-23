@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title }}</title>
+    <title>𝕄𝕒𝕣𝕤 | {{ title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
@@ -13,6 +13,15 @@
         <div class="container-fluid">
             <h1 class="navbar-brand mb-0">Миссия Колонизация Марса</h1>
             <ul class="navbar-nav">
+                {% if current_user.id == 5 %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link ms-6 me-3 active">The King | ♔</a>
+                </li>
+                {% elif current_user.id == 1 %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link ms-6 me-3 active">Captain</a>
+                </li>
+                {% endif %}
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">{{ current_user.name }}</a>
