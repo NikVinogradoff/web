@@ -4,6 +4,7 @@ from werkzeug.utils import redirect
 from data.db_session import create_session
 from data.jobs import Jobs
 from data.user import User
+from forms.jobs_form import JobsForm
 from forms.login_form import LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user
 
@@ -12,6 +13,7 @@ from data import db_session
 from os import listdir
 
 from random import randint, choice
+from datetime import datetime as dt
 
 import json
 
@@ -191,7 +193,7 @@ def login():
     if login_form.validate_on_submit():
         session = db_session.create_session()
         user = session.query(User).filter(
-            User.email == login_form.email
+            User.email == login_form.email.data
         ).first()
         if user and user.check_password(login_form.password.data):
             login_user(user, login_form.remember_me)
@@ -244,6 +246,26 @@ def member():
         marser = file[choice(file.keys())]
     return render_template("member.html", name=marser["name"], surname=marser["surname"],
                            photo=marser["photo"], professions=', '.join(sorted(marser["professions"])))
+
+
+@app.route("/addjob", methods=['GET', 'POST'])
+@login_required
+def addjob():
+    jobs_form = JobsForm()
+    if jobs_form.validate_on_submit():
+        session = db_session.create_session()
+
+        modules_request = Jobs(
+            team_leader=jobs_form.team_leader.data,
+            job=jobs_form.job.data,
+            work_size=jobs_form.work_size.data,
+            collaborators=jobs_form.collaborators.data,
+            start_date=dt.now(),
+            is_finished=jobs_form.is_finished.data
+        )
+        session.add(modules_request)
+        session.commit()
+    return render_template("addjob.html", form=jobs_form, title="Adding a job")
 
 
 if __name__ == "__main__":
