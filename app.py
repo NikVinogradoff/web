@@ -17,6 +17,8 @@ from datetime import datetime as dt
 
 import json
 
+from forms.register_form import RegisterForm
+
 app = Flask(__name__)
 
 
@@ -265,7 +267,29 @@ def addjob():
         )
         session.add(modules_request)
         session.commit()
-    return render_template("addjob.html", form=jobs_form, title="Adding a job")
+    return render_template("addjob.html", form=jobs_form, title="Добавление работы")
+
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    reg_form = RegisterForm()
+    if reg_form.validate_on_submit():
+        session = db_session.create_session()
+
+        guy = User(
+            surname=reg_form.surname.data,
+            name=reg_form.name.data,
+            age=reg_form.age.data,
+            position=reg_form.position.data,
+            speciality=reg_form.speciality.data,
+            address=reg_form.address.data,
+            email=reg_form.email.data,
+        )
+        guy.hash_password(reg_form.password.data)
+        session.add(guy)
+        session.commit()
+        return redirect("/login")
+    return render_template("register.html", form=reg_form, title="Регистрация")
 
 
 if __name__ == "__main__":
