@@ -21,3 +21,17 @@ def jobs():
             ]
         })
     return jsonify({"error": "Method not allowed"}), 405
+
+
+@api.route("/api/jobs/<int:job_id>", methods=["GET"])
+def one_jobs(job_id):
+    if request.method == 'GET':
+        session = db_session.create_session()
+        jobs_item = session.query(Jobs).filter(Jobs.id == job_id).first()
+        return jsonify({
+            "jobs":
+                jobs_item.to_dict(only=(
+                    "id", "team_leader", "job", "work_size", "collaborators", "start_date", "end_date", "is_finished")
+                )
+        })
+    return jsonify({"error": "Method not allowed"}), 405
