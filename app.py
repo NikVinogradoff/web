@@ -18,8 +18,10 @@ from datetime import datetime as dt
 import json
 
 from forms.register_form import RegisterForm
+from api import api
 
 app = Flask(__name__)
+app.register_blueprint(api)
 
 
 app.config["SECRET_KEY"] = "password123"
