@@ -22,6 +22,14 @@ class UsersResource(Resource):
             "email", "hashed_password", "modified_date"
         )))
 
+    def delete(self, users_id):
+        abort_if_users_not_found(users_id)
+        session = db_session.create_session()
+        users = session.query(User).get(users_id)
+        session.delete(users)
+        session.commit()
+        return jsonify({"success": "ok"})
+
 
 class UsersListResource(Resource):
     def get(self):
