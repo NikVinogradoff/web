@@ -1,4 +1,4 @@
-from flask_restful import abort, Resource
+from flask_restful import abort, Resource, reqparse
 from flask import jsonify
 
 from data import db_session
@@ -31,6 +31,19 @@ class UsersResource(Resource):
         return jsonify({"success": "ok"})
 
 
+parser = reqparse.RequestParser()
+parser.add_argument("surname", required=True)
+parser.add_argument("name", required=True)
+parser.add_argument("age", required=True, type=int)
+parser.add_argument("collaborators", required=True)
+parser.add_argument("position", required=True)
+parser.add_argument("speciality", required=True)
+parser.add_argument("address", required=True)
+parser.add_argument("email", required=True)
+parser.add_argument("hashed_password", required=True)
+parser.add_argument("modified_date", required=True)
+
+
 class UsersListResource(Resource):
     def get(self):
         session = db_session.create_session()
@@ -43,3 +56,22 @@ class UsersListResource(Resource):
                 ) for user in users
             ]
         })
+
+    def post(self):
+        args = parser.parse_args()
+        session = db_session.create_session()
+        users = User(
+            surname=args["surname"],
+            name=args["name"],
+            age=args["age"],
+            position=args["position"],
+            speciality=args["speciality"],
+            address=args["address"],
+            email=args["email"],
+            hashed_password=args["hashed_password"],
+            modified_date=args["modified_date"],
+            is_finished=args["is_finished"]
+        )
+        session.add(users)
+        session.commit()
+        return jsonify({"id": users.id})
