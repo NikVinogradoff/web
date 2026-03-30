@@ -19,7 +19,7 @@ class UsersResource(Resource):
         users = session.query(User).get(users_id)
         return jsonify(users.to_dict(only=(
             "id", "surname", "name", "age", "position", "speciality", "address",
-            "email", "hashed_password", "modified_date"
+            "email", "modified_date"
         )))
 
     def delete(self, users_id):
