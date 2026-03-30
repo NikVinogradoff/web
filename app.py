@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response, jsonify
 from werkzeug.utils import redirect
+from flask_restful import reqparse, abort, Api, Resource
 
 from data.db_session import create_session
 from data.jobs import Jobs
@@ -18,10 +19,18 @@ from datetime import datetime as dt
 import json
 
 from forms.register_form import RegisterForm
-from api import api
+from resources.jobs_resources import JobsResource, JobsListResource
+from resources.users_resources import UsersResource, UsersListResource
+
+# from api import api
 
 app = Flask(__name__)
-app.register_blueprint(api)
+# app.register_blueprint(api)
+api = Api(app)
+api.add_resource(JobsResource, "/api/v2/jobs/<int:jobs_id>")
+api.add_resource(JobsListResource, "/api/v2/jobs")
+api.add_resource(UsersResource, "/api/v2/users/<int:users_id>")
+api.add_resource(UsersListResource, "/api/v2/users")
 
 
 app.config["SECRET_KEY"] = "password123"
@@ -292,6 +301,16 @@ def register():
         session.commit()
         return redirect("/login")
     return render_template("register.html", form=reg_form, title="Регистрация")
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
 
 
 if __name__ == "__main__":
