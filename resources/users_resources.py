@@ -16,12 +16,10 @@ parser = reqparse.RequestParser()
 parser.add_argument("surname", required=True)
 parser.add_argument("name", required=True)
 parser.add_argument("age", required=True, type=int)
-parser.add_argument("collaborators", required=True)
 parser.add_argument("position", required=True)
 parser.add_argument("speciality", required=True)
 parser.add_argument("address", required=True)
 parser.add_argument("email", required=True)
-parser.add_argument("hashed_password", required=True)
 parser.add_argument("modified_date", required=True)
 
 
@@ -56,9 +54,7 @@ class UsersResource(Resource):
             speciality=args["speciality"],
             address=args["address"],
             email=args["email"],
-            hashed_password=args["hashed_password"],
-            modified_date=args["modified_date"],
-            is_finished=args["is_finished"]
+            modified_date=args["modified_date"]
         )
         session.merge(users)
         session.commit()
@@ -76,7 +72,7 @@ class UsersListResource(Resource):
             "users": [
                 user.to_dict(only=(
                     "id", "surname", "name", "age", "position", "speciality", "address",
-                    "email", "hashed_password", "modified_date")
+                    "email", "modified_date")
                 ) for user in users
             ]
         })
@@ -92,9 +88,7 @@ class UsersListResource(Resource):
             speciality=args["speciality"],
             address=args["address"],
             email=args["email"],
-            hashed_password=args["hashed_password"],
-            modified_date=args["modified_date"],
-            is_finished=args["is_finished"]
+            modified_date=args["modified_date"]
         )
         session.add(users)
         session.commit()
