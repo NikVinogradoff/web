@@ -27,10 +27,10 @@ from resources.users_resources import UsersResource, UsersListResource
 app = Flask(__name__)
 # app.register_blueprint(api)
 api = Api(app)
-api.add_resource(JobsResource, "/api/v2/jobs/<int:jobs_id>")
-api.add_resource(JobsListResource, "/api/v2/jobs")
-api.add_resource(UsersResource, "/api/v2/users/<int:users_id>")
-api.add_resource(UsersListResource, "/api/v2/users")
+api.add_resource(JobsResource, "/api/jobs/<int:jobs_id>")
+api.add_resource(JobsListResource, "/api/jobs/")
+api.add_resource(UsersResource, "/api/users/<int:users_id>")
+api.add_resource(UsersListResource, "/api/users/")
 
 
 app.config["SECRET_KEY"] = "password123"
@@ -252,10 +252,8 @@ def gallery():
 
 @app.route("/member")
 def member():
-    with open(f"templates/members.json", 'r') as f: # если бы в json-е были бы строки на русском, как в примере,
-        # то при считывании файла python бы почему-то перевёл русский на марсианский ('Р\xa0РёРґР»Рё РЎРєРѕС‚С‚' и т.п.)
+    with open(f"templates/members.json", 'r') as f:
         file = json.load(f)
-        print(file)
         marser = file[choice(file.keys())]
     return render_template("member.html", name=marser["name"], surname=marser["surname"],
                            photo=marser["photo"], professions=', '.join(sorted(marser["professions"])))
